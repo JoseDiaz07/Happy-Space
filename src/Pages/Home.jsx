@@ -43,8 +43,8 @@ const Home = () => {
             <img src={catImg} alt="" className="rounded-md w-60 h-64 object-cover" />
           </div>
           <div className="flex gap-x-5 duration-75">
-            <button onClick={getCat} className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black">Get a cat</button>
-            <a href={catImg} download className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black">Download</a>
+            <button onClick={getCat} className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black active:bg-none">Get a cat</button>
+            <a href={catImg} download target="_blank" rel="noreferrer" className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black active:bg-none">Download</a>
           </div>
         </div>
 
@@ -53,8 +53,8 @@ const Home = () => {
             <img src={dogImg} alt="" className="rounded-md w-60 h-64 object-cover" />
           </div>    
           <div className="flex gap-x-5 duration-75">
-            <button onClick={getDog} className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black">Get a cat</button>
-            <a href={dogImg} download className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black">Download</a>
+            <button onClick={getDog} className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black active:bg-none ">Get a dog</button>
+            <a href={dogImg} download target="_blank" rel="noreferrer" className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black active:bg-none">Download</a>
           </div>
         </div>
 
