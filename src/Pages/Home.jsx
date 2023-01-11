@@ -11,9 +11,8 @@ const Home = () => {
       const data = await res.json()
       setCatImg(data.file)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
-
   }
 
   const getDog = async () => {
@@ -22,7 +21,7 @@ const Home = () => {
       const data = await res.json()
       setDogImg(data.message)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
