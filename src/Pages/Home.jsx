@@ -36,7 +36,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500">
-      <div className="pt-8 md:pt-28 pb-24 flex-wrap md:flex justify-center  gap-10">
+      <div className="pt-6 md:pt-28 pb-24 flex-wrap md:flex justify-center  gap-10">
 
         <div className="w-72 shadow-lg p-5 rounded-md text-center bg-slate-100 dark:bg-[#28292a] mx-auto md:mx-0 transition-all duration-500">
           <div className="rounded-md w-60 h-64">
