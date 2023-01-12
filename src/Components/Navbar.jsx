@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { HiMoon } from "react-icons/hi2";
 import { HiSun } from "react-icons/hi2";
+import { MdMenu } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
+import NavItem from "./NavItem";
 
 const Navbar = () => {
-
     const location = useLocation()
 
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || '');
+    const [mobileMenu, setMobileMenu] = useState(false);
+    const handdleMobileMenu = () => {
+        setTimeout(() => setMobileMenu(!mobileMenu), 200)
+    }
 
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || '');
     const toggleTheme = () => theme === '' ? setTheme('dark') : setTheme('')
 
     useEffect(() => {
@@ -17,32 +23,73 @@ const Navbar = () => {
     }, [theme]);
 
     const [Icon, setIcon] = useState(false)
-
     const toggleIcon = () => {
         setIcon(!Icon)
     }
 
-
     return (
         <nav className="bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500">
             <div className="flex justify-between px-4 md:px-16 py-4">
-                <h1 className="text-2xl">Happy Space</h1>
-                <div className="flex gap-4">
-                    <span className={location.pathname === "/" ? "underline underline-offset-8 decoration-red-800 decoration-2 transition-colors pt-2" : "group transition-all ease-in-out pt-2"}><NavLink to="/" className="bg-left-bottom bg-gradient-to-r from-gray-600 to-gray-600 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:200%_2px] transition-all duration-300 ease-in text-base hover:cursor-pointer">Home</NavLink></span>
+                <NavLink to="/" className="text-2xl dark:text-white">Happy Space</NavLink>
+                <div className="hidden md:flex gap-4 ">
+                    <NavItem title="Home" path="/" />
 
-                    <span className={location.pathname === "/cats" ? "underline underline-offset-8 decoration-red-800 decoration-2 transition-colors pt-2" : "group transition-all ease-in-out pt-2"}><NavLink to="/cats" className="bg-left-bottom bg-gradient-to-r from-gray-600 to-gray-600 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:200%_2px] transition-all duration-300 ease-in text-base hover:cursor-pointer">Cats</NavLink></span>
+                    <NavItem title="Cats" path="/cats" />
 
-                    <span className={location.pathname === "/dogs" ? "underline underline-offset-8 decoration-red-800 decoration-2 transition-colors pt-2" : "group transition-all ease-in-out pt-2"}><NavLink to="/dogs" className="bg-left-bottom bg-gradient-to-r from-gray-600 to-gray-600 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:200%_2px] transition-all duration-300 ease-in text-base hover:cursor-pointer">Dogs</NavLink></span>
-                    
+                    <NavItem title="Dogs" path="/dogs" />
+
                     {
                         Icon
                             ?
-                            <span className="rounded-full p-2 cursor-pointer hover:origin-center hover:-rotate-12 transition-all duration-200 scale-125" onClick={function () { toggleTheme(); toggleIcon() }}><HiMoon size={24} /></span>
+                            <span className="rounded-full p-2 cursor-pointer hover:origin-center hover:-rotate-12 transition-all duration-200 scale-125 md:mt-1" onClick={function () { toggleTheme(); toggleIcon() }}><HiMoon size={24}/></span>
                             :
-                            <span className="rounded-full p-2 cursor-pointer hover:origin-center hover:-rotate-45 transition-all duration-200 scale-125" onClick={function () { toggleTheme(); toggleIcon() }}><HiSun size={24} /></span>
+                            <span className="rounded-full p-2 cursor-pointer hover:origin-center hover:-rotate-45 transition-all duration-200 scale-125 md:mt-1" onClick={function () { toggleTheme(); toggleIcon() }}><HiSun size={24} /></span>
                     }
                 </div>
+                <div className="flex gap-4 justify-end md:hidden">
+                    {
+                        Icon
+                            ?
+                            <span className="rounded-full p-2 cursor-pointer hover:origin-center hover:-rotate-12 transition-all duration-200 scale-125 md:pt-3" onClick={function () { toggleTheme(); toggleIcon() }}><HiMoon size={24} /></span>
+                            :
+                            <span className="rounded-full p-2 cursor-pointer hover:origin-center hover:-rotate-45 transition-all duration-200 scale-125 md:pt-3" onClick={function () { toggleTheme(); toggleIcon() }}><HiSun size={24} /></span>
+                    }
+                    <MdMenu size={38} onClick={() => setMobileMenu(!mobileMenu)} className="transition-all duration-500 md:hidden rounded-full p-2 cursor-pointer scale-125" />
+                </div>
+                {
+                    mobileMenu
+                        &&
+                        <div className="h-screen w-full top-0 left-0 z-20 bg-slate-100 dark:bg-[#121212] fixed transition-all duration-500 md:hidden" data-aos="fade-down" data-aos-duration="600">
+                            <MdClose size={38} className="absolute right-0 m-4 text-black dark:text-slate-100 cursor-pointer p-1 rounded-full scale-125" onClick={() => setMobileMenu(!mobileMenu)} />
+                            <div className="pt-44 pl-20">
+                                <div>
+                                    <span className={location.pathname === "/" ? "underline underline-offset-4 decoration-red-800 decoration-1 decoration-wavy transition-colors pt-0.5 md:pt-2" : "pt-0.5 md:pt-2"}  onClick={handdleMobileMenu}>
+                                        <NavLink to="/" className="text-6xl">
+                                            <span className="bold font-mono text-slate-500 text-2xl">01</span>Home
+                                        </NavLink>
+                                    </span>
+                                </div>
 
+                                <div className="mt-5">
+                                    <span className={location.pathname === "/cats" ? "underline underline-offset-4 decoration-red-800 decoration-1 decoration-wavy transition-colors pt-0.5 md:pt-2" : "pt-0.5 md:pt-2"}  onClick={handdleMobileMenu}>
+                                        <NavLink to="/cats" className="text-6xl">
+                                            <span className="bold font-mono text-slate-500 text-2xl">02</span>Cats
+                                        </NavLink>
+                                    </span>
+                                </div>
+
+                                <div className="mt-5">
+                                    <span className={location.pathname === "/dogs" ? "underline underline-offset-4 decoration-red-800 decoration-1 decoration-wavy transition-colors pt-0.5 md:pt-2" : "pt-0.5 md:pt-2"}  onClick={handdleMobileMenu}>
+                                        <NavLink to="/dogs" className="text-6xl">
+                                            <span className="bold font-mono text-slate-500 text-2xl">03</span>Dogs
+                                        </NavLink>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                }
             </div>
         </nav>
     )
