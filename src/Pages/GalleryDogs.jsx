@@ -4,7 +4,7 @@ import RefreshBtn from "../Components/RefreshBtn";
 
 const GalleryDogs = () => {
   const [dogUrls, setDogUrls] = useState('');
-
+  
   const getDog = useCallback(async () => {
     try {
       const res = await fetch('https://api.thedogapi.com/v1/images/search?limit=10')
