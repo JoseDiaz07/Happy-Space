@@ -25,7 +25,7 @@ const GalleryDogs = () => {
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
       <div className="flex flex-wrap justify-center md:justify-start px-16 pt-2 gap-5">
         {dogUrls
-          ?
+          &&
           (
             dogUrls.map((dogUrl) =>
               <div className="pt-4 md:pt-10" key={dogUrl.id}>
@@ -38,20 +38,6 @@ const GalleryDogs = () => {
                   </div>
                 </div>
               </div>)
-          )
-          :
-          (
-            <div className="pt-4 md:pt-10">
-              <div className="card" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
-                <div className="rounded-md w-60 h-64 mx-auto">
-                  <CgSpinner size={90} className="animate-spin mx-auto " />
-                </div>
-
-                <div className="flex justify-center gap-x-5 duration-75">
-                  <a href="/dogs" download target="_blank" rel="noreferrer" className="py-2 px-5 mt-5 outline outline-1 rounded-md hover:bg-black hover:text-slate-100 dark:hover:bg-white dark:hover:text-black active:bg-none">Download</a>
-                </div>
-              </div>
-            </div>
           )
         }
       </div>
