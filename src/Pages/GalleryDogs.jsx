@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { CgSpinner } from "react-icons/cg";
 import RefreshBtn from "../Components/RefreshBtn";
 
 const GalleryDogs = () => {
@@ -24,7 +25,7 @@ const GalleryDogs = () => {
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
       <div className="flex flex-wrap justify-center md:justify-start px-16 pt-2 gap-5">
         {dogUrls
-          &&
+          ?
           (
             dogUrls.map((dogUrl) =>
               <div className="pt-4 md:pt-10" key={dogUrl.id}>
@@ -37,6 +38,12 @@ const GalleryDogs = () => {
                   </div>
                 </div>
               </div>)
+          )
+          :
+          (
+            <div className="pt-4 md:pt-10 mx-auto m-20">
+              <CgSpinner size={90} className="animate-spin mx-auto " />
+            </div>
           )
         }
       </div>
