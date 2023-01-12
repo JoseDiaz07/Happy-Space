@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
-import { Link } from "react-router-dom";
 import RefreshBtn from "../Components/RefreshBtn";
 
 const GalleryCats = () => {
