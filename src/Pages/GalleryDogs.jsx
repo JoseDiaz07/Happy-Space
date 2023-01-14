@@ -30,8 +30,8 @@ const GalleryDogs = () => {
             dogUrls.map((dogUrl) =>
               <div className="pt-4 md:pt-10" key={dogUrl.id}>
                 <div className="card" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
-                  <div className="rounded-md w-60 h-64 mx-auto">
-                    <img src={dogUrl.url} alt="dog" className="rounded-md w-60 h-64 object-cover object-center" />
+                  <div className="rounded-md w-60 h-64 mx-auto hover:scale-105 transition-all duration-300">
+                    <img src={dogUrl.url} alt="dog" className="rounded-md w-60 h-64 object-cover" />
                   </div>
                   <div className="flex justify-center gap-x-5 duration-75">
                     <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="btn">Download</a>
