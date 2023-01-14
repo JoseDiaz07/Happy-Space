@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import RefreshBtn from "../Components/RefreshBtn";
+import { MdOutlineFileDownload } from "react-icons/md";
 
 const GalleryCats = () => {
   const [catUrls, setCatUrls] = useState('');
+  const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
+  const [liked, setLiked] = useState(false);
+  const [showLikesOnly, setShowLikesOnly] = useState(false);
 
   const getCat = useCallback(async () => {
     try {
@@ -21,23 +26,51 @@ const GalleryCats = () => {
     getCat()
   }, [getCat])
 
+  useEffect(() => {
+    localStorage.setItem("likes", JSON.stringify(likes));
+  }, [likes])
+
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
-      <div className="flex flex-wrap justify-center md:justify-start px-16 pt-2 gap-5">
+
+      <div className="flex justify-end pr-3 md:pr-16"><button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-200 transition-all duration-200">
+        Favorites
+      </button></div>
+
+      <div className="flex flex-wrap justify-center md:justify-start px-4 md:px-16 pt-10 gap-5">
         {catUrls
           ?
           (
-            catUrls.map((catUrl) =>
-              <div className="pt-4 md:pt-10" key={catUrl.id}>
-                <div className="card" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
-                  <div className="rounded-md w-60 h-64 mx-auto hover:scale-105 transition-all duration-300">
-                    <img src={catUrl.url} alt="cat" className="rounded-md w-60 h-64 object-cover" />
-                  </div>
-                  <div className="flex justify-center gap-x-5 duration-75">
-                    <a href={catUrl.url} download target="_blank" rel="noreferrer" className="btn">Download</a>
+            catUrls
+              .filter(catUrl => !showLikesOnly || likes[catUrl.id])
+              .map((catUrl) =>
+                <div className="relative" key={catUrl.id}>
+                  <img src={catUrl.url} alt="cat" className="h-full w-44 md:h-60 md:w-full object-cover rounded-md" />
+                  <div className="absolute bottom-0 right-0 p-2">
+                    <button onClick={function () { setLikes({ ...likes, [catUrl.id]: !likes[catUrl.id] }); setLiked(true) }}>
+
+                      {
+                        likes[catUrl.id]
+                          ?
+                          <div className="flex gap-x-2">
+                            <AiFillHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                            <a href={catUrl.url} download target="_blank" rel="noreferrer">
+                              <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                            </a>
+                          </div>
+                          :
+                          <div className="flex gap-x-2">
+                            <AiOutlineHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                            <a href={catUrl.url} download target="_blank" rel="noreferrer">
+                              <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                            </a>
+                          </div>
+                      }
+
+                    </button>
                   </div>
                 </div>
-              </div>)
+              )
           )
           :
           (
@@ -47,7 +80,6 @@ const GalleryCats = () => {
           )
         }
       </div>
-
       <RefreshBtn path="/cats" get="getCats" />
     </div>
   )
