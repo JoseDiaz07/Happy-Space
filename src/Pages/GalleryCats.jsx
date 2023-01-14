@@ -44,8 +44,8 @@ const GalleryCats = () => {
             catUrls
               .filter(catUrl => !showLikesOnly || likes[catUrl.id])
               .map((catUrl) =>
-                <div className="relative" key={catUrl.id}>
-                  <img src={catUrl.url} alt="cat" className="h-full w-44 md:h-60 md:w-full object-cover rounded-md" />
+                <div className="relative" key={catUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                  <img src={catUrl.url} alt="cat" className="h-full w-40 md:h-60 md:w-full object-cover rounded-md" />
                   <div className="absolute bottom-0 right-0 p-2">
                     <button onClick={function () { setLikes({ ...likes, [catUrl.id]: !likes[catUrl.id] }); setLiked(true) }}>
 

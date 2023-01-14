@@ -64,7 +64,7 @@ const Navbar = () => {
                             <div className="pt-44 pl-20">
                                 <div>
                                     <span className={location.pathname === "/" ? "underline underline-offset-4 decoration-red-800 decoration-1 decoration-wavy transition-colors pt-0.5 md:pt-2" : "pt-0.5 md:pt-2"}  onClick={handdleMobileMenu}>
-                                        <NavLink to="/" className="text-6xl">
+                                        <NavLink to="/" className="text-6xl dark:text-slate-100">
                                             <span className="bold font-mono text-slate-500 text-2xl">01</span>Home
                                         </NavLink>
                                     </span>
@@ -72,7 +72,7 @@ const Navbar = () => {
 
                                 <div className="mt-5">
                                     <span className={location.pathname === "/cats" ? "underline underline-offset-4 decoration-red-800 decoration-1 decoration-wavy transition-colors pt-0.5 md:pt-2" : "pt-0.5 md:pt-2"}  onClick={handdleMobileMenu}>
-                                        <NavLink to="/cats" className="text-6xl">
+                                        <NavLink to="/cats" className="text-6xl dark:text-slate-100">
                                             <span className="bold font-mono text-slate-500 text-2xl">02</span>Cats
                                         </NavLink>
                                     </span>
@@ -80,14 +80,12 @@ const Navbar = () => {
 
                                 <div className="mt-5">
                                     <span className={location.pathname === "/dogs" ? "underline underline-offset-4 decoration-red-800 decoration-1 decoration-wavy transition-colors pt-0.5 md:pt-2" : "pt-0.5 md:pt-2"}  onClick={handdleMobileMenu}>
-                                        <NavLink to="/dogs" className="text-6xl">
+                                        <NavLink to="/dogs" className="text-6xl dark:text-slate-100">
                                             <span className="bold font-mono text-slate-500 text-2xl">03</span>Dogs
                                         </NavLink>
                                     </span>
                                 </div>
                             </div>
-
-
                         </div>
                 }
             </div>
