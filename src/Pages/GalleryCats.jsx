@@ -37,7 +37,7 @@ const GalleryCats = () => {
         Favorites
       </button></div>
 
-      <div className="flex flex-wrap justify-center md:justify-start px-3 md:px-16 pt-10 gap-5">
+      <div className="flex flex-wrap justify-center md:justify-start px-2 md:px-16 pt-10 gap-x-2 gap-y-10">
         {
           catUrls
             ?
@@ -46,7 +46,7 @@ const GalleryCats = () => {
                 .filter(catUrl => !showLikesOnly || likes[catUrl.id])
                 .map((catUrl) =>
                   <div className="relative" key={catUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={catUrl.url} alt="cat" className="h-72 w-[10.3rem] md:h-60 md:w-full object-cover rounded-md" />
+                    <img src={catUrl.url} alt="cat" className="h-96 w-72 md:h-60 md:w-full object-cover rounded-md" />
                     <div className="absolute bottom-0 right-0 p-2">
                       <button onClick={function () { setLikes({ ...likes, [catUrl.id]: !likes[catUrl.id] }); setLiked(true) }}>
 

@@ -37,7 +37,7 @@ const GalleryDogs = () => {
         Favorites
       </button></div>
 
-      <div className="flex flex-wrap justify-center md:justify-start px-5 md:px-16 pt-10 gap-6">
+      <div className="flex flex-wrap justify-center md:justify-start px-5 md:px-16 pt-10 gap-10">
         {
           dogUrls
             ?
@@ -46,7 +46,7 @@ const GalleryDogs = () => {
                 .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
                 .map((dogUrl) =>
                   <div className="relative" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={dogUrl.url} alt="dog" className="h-80 w-96 md:h-60 md:w-full object-cover rounded-md" />
+                    <img src={dogUrl.url} alt="dog" className="h-96 w-72  md:h-60 md:w-full object-cover rounded-md" />
                     <div className="absolute bottom-0 right-0 p-2">
                       <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
 
