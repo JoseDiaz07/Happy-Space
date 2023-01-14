@@ -6,25 +6,25 @@ import { MdOutlineFileDownload } from "react-icons/md";
 
 const GifDog = () => {
   const API_KEY = "live_LaxTNaqiuVnnA7IXJ2ysXfufGDoqo6T4Z0avwRpEgLhaUzqsZRGMM8XSIkbTPWev"
-  const [catUrls, setCatUrls] = useState('');
+  const [dogUrls, setDogUrls] = useState('');
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
   const [liked, setLiked] = useState(false);
   const [showLikesOnly, setShowLikesOnly] = useState(false);
 
-  const getCat = useCallback(async () => {
+  const getDog = useCallback(async () => {
     try {
       const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=24&mime_types=gif&api_key=${API_KEY}`)
       const data = await res.json()
-      const catImageUrlList = await data.map(cat => cat);
-      setCatUrls(catImageUrlList);
+      const catImageUrlList = await data.map(dog => dog);
+      setDogUrls(catImageUrlList);
     } catch (error) {
       console.log(error)
     }
-  }, [setCatUrls]);
+  }, [setDogUrls]);
 
   useEffect(() => {
-    getCat()
-  }, [getCat])
+    getDog()
+  }, [getDog])
 
   useEffect(() => {
     localStorage.setItem("likes", JSON.stringify(likes));
@@ -39,33 +39,37 @@ const GifDog = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap justify-center md:justify-start px-2 md:px-16 pt-10 gap-x-2 md:gap-x-4 gap-y-10">
+      <div className="flex flex-wrap justify-center md:justify-start px-2 md:px-16 pt-10 gap-x-2 md:gap-x-4 gap-y-20 md:gap-y-10">
         {
-          catUrls
+          dogUrls
             ?
             (
-              catUrls
-                .filter(catUrl => !showLikesOnly || likes[catUrl.id])
-                .map((catUrl) =>
-                  <div className="relative" key={catUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={catUrl.url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-md" />
+              dogUrls
+                .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
+                .map((dogUrl) =>
+                  <div className="relative" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                    <img src={dogUrl.url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-md" />
                     <div className="absolute bottom-0 right-0 p-2">
-                      <button onClick={function () { setLikes({ ...likes, [catUrl.id]: !likes[catUrl.id] }); setLiked(true) }}>
+                      <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
 
                         {
-                          liked & likes[catUrl.id]
+                          liked & likes[dogUrl.id]
                             ?
                             <div className="flex gap-x-2">
-                              <AiFillHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
-                              <a href={catUrl.url} download target="_blank" rel="noreferrer">
-                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              <span className="p-0.5 backdrop-blur-sm rounded-full">
+                                <AiFillHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              </span>
+                              <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="p-0.5 backdrop-blur-sm rounded-full">
+                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200 backdrop-blur-sm" />
                               </a>
                             </div>
                             :
                             <div className="flex gap-x-2">
-                              <AiOutlineHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
-                              <a href={catUrl.url} download target="_blank" rel="noreferrer">
-                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              <span className="p-0.5 backdrop-blur-sm rounded-full">
+                                <AiOutlineHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              </span>
+                              <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="p-0.5 backdrop-blur-sm rounded-full">
+                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200 backdrop-blur-sm" />
                               </a>
                             </div>
                         }
@@ -83,7 +87,7 @@ const GifDog = () => {
             )
         }
       </div>
-      <RefreshBtn path="/cats" get="getCats" />
+      <RefreshBtn path="/cats" get="getDog" />
     </div>
   )
 }

@@ -63,7 +63,7 @@ const Navbar = () => {
                 {
                     mobileMenu
                         &&
-                        <div className="h-screen w-full top-0 left-0 z-20 bg-slate-100 dark:bg-[#121212] fixed transition-all duration-500 md:hidden" data-aos="fade-down" data-aos-duration="600">
+                        <div className="h-screen w-full top-0 left-0 z-20 bg-slate-100 dark:bg-[#121212] fixed animation md:hidden" transition-style="in:circle:top-right">
                             <MdClose size={38} className="absolute right-0 m-4 text-black dark:text-slate-100 cursor-pointer p-1 rounded-full scale-125" onClick={() => setMobileMenu(!mobileMenu)} />
                             <div className="pt-32 pl-20">
                                 <div>
