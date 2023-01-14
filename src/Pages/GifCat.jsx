@@ -4,7 +4,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import RefreshBtn from "../Components/RefreshBtn";
 import { MdOutlineFileDownload } from "react-icons/md";
 
-const GalleryCats = () => {
+const GifCat = () => {
   const API_KEY = "live_Vij93yq9KvVPmqRrG9T6tTTGyJggDD2nkxOitkWTaeQqzNT3IhACReHNuB3neLO8";
   const [catUrls, setCatUrls] = useState('');
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
@@ -13,7 +13,7 @@ const GalleryCats = () => {
 
   const getCat = useCallback(async () => {
     try {
-      const res = await fetch(`https://api.thecatapi.com/v1/images/search?limit=24&mime_types=jpg&api_key=${API_KEY}`)
+      const res = await fetch(`https://api.thecatapi.com/v1/images/search?limit=24&mime_types=gif&api_key=${API_KEY}`)
       const data = await res.json()
       const catImageUrlList = await data.map(cat => cat);
       setCatUrls(catImageUrlList);
@@ -34,7 +34,7 @@ const GalleryCats = () => {
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
 
       <div className="flex justify-end pr-3 md:pr-16">
-        <button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200 transition-all duration-200">
+        <button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200  transition-all duration-200">
           Favorites
         </button>
       </div>
@@ -88,4 +88,4 @@ const GalleryCats = () => {
   )
 }
 
-export default GalleryCats
+export default GifCat

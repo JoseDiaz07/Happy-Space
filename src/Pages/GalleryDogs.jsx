@@ -5,6 +5,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import RefreshBtn from "../Components/RefreshBtn";
 
 const GalleryDogs = () => {
+  const API_KEY = "live_LaxTNaqiuVnnA7IXJ2ysXfufGDoqo6T4Z0avwRpEgLhaUzqsZRGMM8XSIkbTPWev"
   const [dogUrls, setDogUrls] = useState('');
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
   const [liked, setLiked] = useState(false);
@@ -12,8 +13,8 @@ const GalleryDogs = () => {
 
   const getDog= useCallback(async () => {
     try {
-      const res = await fetch('https://api.thedogapi.com/v1/images/search?limit=10')
-      const data = await res.json() // data in json
+      const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=24&mime_types=jpg&api_key=${API_KEY}`)
+      const data = await res.json()
       const catImageUrlList = await data.map(dog => dog);
       setDogUrls(catImageUrlList);
     } catch (error) {
@@ -33,11 +34,11 @@ const GalleryDogs = () => {
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
 
-      <div className="flex justify-end pr-3 md:pr-16"><button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-200 transition-all duration-200">
+      <div className="flex justify-end pr-3 md:pr-16"><button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200  transition-all duration-200">
         Favorites
       </button></div>
 
-      <div className="flex flex-wrap justify-center md:justify-start px-5 md:px-16 pt-10 gap-10">
+      <div className="flex flex-wrap justify-center md:justify-start px-2 md:px-16 pt-10 gap-x-2 md:gap-x-4 gap-y-10">
         {
           dogUrls
             ?
@@ -46,7 +47,7 @@ const GalleryDogs = () => {
                 .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
                 .map((dogUrl) =>
                   <div className="relative" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={dogUrl.url} alt="dog" className="h-96 w-72  md:h-60 md:w-full object-cover rounded-md" />
+                    <img src={dogUrl.url} alt="dog" className="h-96 md:h-full w-72 object-cover rounded-md" />
                     <div className="absolute bottom-0 right-0 p-2">
                       <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
 
@@ -61,7 +62,7 @@ const GalleryDogs = () => {
                             </div>
                             :
                             <div className="flex gap-x-2">
-                              <AiOutlineHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              <AiOutlineHeart size={35} className="hover:bg-red-200 font-semibold text-red-100 hover:text-white p-1 rounded-full transition-all duration-200" />
                               <a href={dogUrl.url} download target="_blank" rel="noreferrer">
                                 <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
                               </a>

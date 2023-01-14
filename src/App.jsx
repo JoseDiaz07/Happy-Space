@@ -9,6 +9,8 @@ import GalleryDogs from "./Pages/GalleryDogs";
 import Home from "./Pages/Home";
 import NotFound from "./Pages/NotFound";
 import ScrollToTop from "./ScrollToTop";
+import GifCat from './Pages/GifCat';
+import GifDog from './Pages/GifDog';
 
 function App() {
   useEffect(() => {
@@ -24,6 +26,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cats" element={<GalleryCats />} />
           <Route path="/dogs" element={<GalleryDogs />} />
+          <Route path="/gifcat" element={<GifCat/>} />
+          <Route path="/gifdog" element={<GifDog/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
