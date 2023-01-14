@@ -50,7 +50,7 @@ const GalleryCats = () => {
                     <button onClick={function () { setLikes({ ...likes, [catUrl.id]: !likes[catUrl.id] }); setLiked(true) }}>
 
                       {
-                        likes[catUrl.id]
+                        liked & likes[catUrl.id]
                           ?
                           <div className="flex gap-x-2">
                             <AiFillHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />

@@ -78,7 +78,7 @@ const Home = () => {
         <div className="w-72 shadow-lg p-5 rounded-md text-center bg-slate-50 dark:bg-[#28292a] mx-auto md:mx-0 transition-all duration-500" data-aos="fade-right" data-aos-duration="1000" data-aos-once="true">
           <div className="relative rounded-md w-60 h-64 mx-auto overflow-hidden" onMouseEnter={handleImgZoomInDog} onMouseLeave={handleImgZoomOutDog}>
             {
-              loadingCat ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-24 left-24" /> : <img src={dogImg} alt="dog img" className={`rounded-md w-60 h-64 object-cover transition-all duration-300 ${imgZoomDog}`} />
+              loadingDog ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-24 left-24" /> : <img src={dogImg} alt="dog img" className={`rounded-md w-60 h-64 object-cover transition-all duration-300 ${imgZoomDog}`} />
             }
           </div>
 
