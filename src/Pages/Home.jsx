@@ -49,19 +49,19 @@ const Home = () => {
             {
               loadingCat ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28" /> : <img src={catImg} alt="cat" className="h-96 w-80 object-cover rounded-md  transition-all duration-300" />
             }
-            <div className="absolute bottom-0 right-6 p-2">
+            <div className="absolute bottom-0 right-8 p-2">
               <button onClick={getCat} className="btn mr-3 backdrop-blur-sm">Get a cat</button>
               <a href={catImg} download target="_blank" rel="noreferrer"><button className="btn backdrop-blur-sm">Download</button></a>
             </div>
           </div>
         </div>
 
-        <div className="h-96 w-80 shadow-lg rounded-md text-center mx-auto md:mx-0 transition-all duration-500 bg-[#28292a]" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
+        <div className="h-96 w-80 mt-10 md:mt-0 shadow-lg rounded-md text-center mx-auto md:mx-0 transition-all duration-500 bg-[#28292a]" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
           <div className="relative rounded-md h-96 w-80  mx-auto overflow-hidden">
             {
               loadingDog ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28" /> : <img src={dogImg} alt="cat" className="h-96 w-80 object-cover rounded-md  transition-all duration-300" />
             }
-            <div className="absolute bottom-0 right-6 p-2">
+            <div className="absolute bottom-0 right-8 p-2">
               <button onClick={getDog} className="btn mr-3 backdrop-blur-sm">Get a dog</button>
               <a href={dogImg} download target="_blank" rel="noreferrer"><button className="btn backdrop-blur-sm">Download</button></a>
             </div>
