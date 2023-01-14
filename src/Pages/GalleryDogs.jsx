@@ -1,11 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { MdOutlineFileDownload } from "react-icons/md";
 import RefreshBtn from "../Components/RefreshBtn";
 
 const GalleryDogs = () => {
   const [dogUrls, setDogUrls] = useState('');
-  
-  const getDog = useCallback(async () => {
+  const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
+  const [liked, setLiked] = useState(false);
+  const [showLikesOnly, setShowLikesOnly] = useState(false);
+
+  const getDog= useCallback(async () => {
     try {
       const res = await fetch('https://api.thedogapi.com/v1/images/search?limit=10')
       const data = await res.json() // data in json
@@ -21,34 +26,62 @@ const GalleryDogs = () => {
     getDog()
   }, [getDog])
 
+  useEffect(() => {
+    localStorage.setItem("likes", JSON.stringify(likes));
+  }, [likes])
+
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
-      <div className="flex flex-wrap justify-center md:justify-start px-16 pt-2 gap-5">
-        {dogUrls
-          ?
-          (
-            dogUrls.map((dogUrl) =>
-              <div className="pt-4 md:pt-10" key={dogUrl.id}>
-                <div className="card" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
-                  <div className="rounded-md w-60 h-64 mx-auto hover:scale-105 transition-all duration-300">
-                    <img src={dogUrl.url} alt="dog" className="rounded-md w-60 h-64 object-cover" />
+
+      <div className="flex justify-end pr-3 md:pr-16"><button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-200 transition-all duration-200">
+        Favorites
+      </button></div>
+
+      <div className="flex flex-wrap justify-center md:justify-start px-5 md:px-16 pt-10 gap-6">
+        {
+          dogUrls
+            ?
+            (
+              dogUrls
+                .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
+                .map((dogUrl) =>
+                  <div className="relative" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                    <img src={dogUrl.url} alt="dog" className="h-80 w-96 md:h-60 md:w-full object-cover rounded-md" />
+                    <div className="absolute bottom-0 right-0 p-2">
+                      <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
+
+                        {
+                          liked & likes[dogUrl.id]
+                            ?
+                            <div className="flex gap-x-2">
+                              <AiFillHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              <a href={dogUrl.url} download target="_blank" rel="noreferrer">
+                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              </a>
+                            </div>
+                            :
+                            <div className="flex gap-x-2">
+                              <AiOutlineHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              <a href={dogUrl.url} download target="_blank" rel="noreferrer">
+                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
+                              </a>
+                            </div>
+                        }
+
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex justify-center gap-x-5 duration-75">
-                    <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="btn">Download</a>
-                  </div>
-                </div>
-              </div>)
-          )
-          :
-          (
-            <div className="pt-4 md:pt-10 mx-auto m-20">
-              <CgSpinner size={90} className="animate-spin mx-auto " />
-            </div>
-          )
+                )
+            )
+            :
+            (
+              <div className="pt-4 md:pt-10 mx-auto m-20">
+                <CgSpinner size={90} className="animate-spin mx-auto " />
+              </div>
+            )
         }
       </div>
-
-      <RefreshBtn path="/dogs" get="getDogs" />
+      <RefreshBtn path="/cats" get="getCats" />
     </div>
   )
 }
