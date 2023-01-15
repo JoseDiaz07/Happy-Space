@@ -46,7 +46,7 @@ const GalleryDogs = () => {
               dogUrls
                 .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
                 .map((dogUrl) =>
-                  <div className="relative" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                  <div className="relative rounded-md shadow-md dark:shadow-none" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
                     <img src={dogUrl.url} alt="dog" className="h-96 md:h-full w-72 object-cover rounded-md" />
                     <div className="absolute bottom-0 right-0 p-2">
                       <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
@@ -86,6 +86,12 @@ const GalleryDogs = () => {
             )
         }
       </div>
+      <div className="flex justify-end pr-3 md:pr-16">
+        <button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200 transition-all duration-200">
+          Favorites
+        </button>
+      </div>
+
       <RefreshBtn path="/cats" get="getCats" />
     </div>
   )
