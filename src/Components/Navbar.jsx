@@ -22,7 +22,7 @@ const Navbar = () => {
         document.body.className = theme;
     }, [theme]);
 
-    const [Icon, setIcon] = useState(false)
+    const [Icon, setIcon] = useState(true)
     const toggleIcon = () => {
         setIcon(!Icon)
     }

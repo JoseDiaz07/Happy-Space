@@ -18,7 +18,7 @@ const GifDog = () => {
       const catImageUrlList = await data.map(dog => dog);
       setDogUrls(catImageUrlList);
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }, [setDogUrls]);
 
@@ -30,11 +30,13 @@ const GifDog = () => {
     localStorage.setItem("likes", JSON.stringify(likes));
   }, [likes])
 
+  const toggleFavorites = () => setShowLikesOnly(!showLikesOnly)
+
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
 
       <div className="flex justify-end pr-3 md:pr-16">
-        <button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200  transition-all duration-200">
+        <button onClick={toggleFavorites} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200  transition-all duration-200">
           Favorites
         </button>
       </div>
@@ -88,7 +90,7 @@ const GifDog = () => {
         }
       </div>
       <div className="flex justify-end pr-3 md:pr-16">
-        <button onClick={() => setShowLikesOnly(!showLikesOnly)} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200 transition-all duration-200">
+        <button onClick={toggleFavorites} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200 transition-all duration-200">
           Favorites
         </button>
       </div>
