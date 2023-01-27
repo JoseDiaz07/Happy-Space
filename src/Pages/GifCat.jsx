@@ -49,8 +49,8 @@ const GifCat = () => {
               catUrls
                 .filter(catUrl => !showLikesOnly || likes[catUrl.id])
                 .map((catUrl) =>
-                  <div className="relative rounded-md shadow-md dark:shadow-none" key={catUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={catUrl.url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-md" />
+                  <div className="relative rounded-xl shadow-md dark:shadow-none" key={catUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                    <img src={catUrl.url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-xl" />
                     <div className="absolute bottom-0 right-0 p-2">
                       <button onClick={function () { setLikes({ ...likes, [catUrl.id]: !likes[catUrl.id] }); setLiked(true) }}>
 

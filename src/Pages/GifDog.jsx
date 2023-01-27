@@ -49,8 +49,8 @@ const GifDog = () => {
               dogUrls
                 .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
                 .map((dogUrl) =>
-                  <div className="relative rounded-md shadow-md dark:shadow-none" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={dogUrl.url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-md" />
+                  <div className="relative rounded-xl shadow-md dark:shadow-none" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                    <img src={dogUrl.url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-xl" />
                     <div className="absolute bottom-0 right-0 p-2">
                       <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
 
