@@ -3,7 +3,6 @@ import { CgSpinner } from "react-icons/cg";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import RefreshBtn from "../Components/RefreshBtn";
 import { MdOutlineFileDownload } from "react-icons/md";
-import ScrollToTopBtn from "../Components/ScrollToTopBtn";
 
 const GalleryCats = () => {
   const API_KEY = "live_Vij93yq9KvVPmqRrG9T6tTTGyJggDD2nkxOitkWTaeQqzNT3IhACReHNuB3neLO8";
