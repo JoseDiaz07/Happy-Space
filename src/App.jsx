@@ -11,6 +11,7 @@ import NotFound from "./Pages/NotFound";
 import ScrollToTop from "./ScrollToTop";
 import GifCat from './Pages/GifCat';
 import GifDog from './Pages/GifDog';
+import ScrollToTopBtn from "./Components/ScrollToTopBtn";
 
 function App() {
   useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/gifdog" element={<GifDog/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ScrollToTopBtn />
         <Footer />
       </ScrollToTop>
     </BrowserRouter>

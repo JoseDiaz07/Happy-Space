@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
+import ScrollToTop from "../Components/ScrollToTopBtn";
 
 const Home = () => {
   const [catImg, setCatImg] = useState("")
@@ -69,6 +70,7 @@ const Home = () => {
         </div>
 
       </div>
+      <ScrollToTop />
     </div>
   );
 }
