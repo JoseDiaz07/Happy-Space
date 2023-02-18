@@ -15,8 +15,8 @@ const GalleryDogs = () => {
     try {
       const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=24&mime_types=jpg&api_key=${API_KEY}`)
       const data = await res.json()
-      const catImageUrlList = await data.map(dog => dog);
-      setDogUrls(catImageUrlList);
+      const dogImageUrlList = await data.map(dog => dog);
+      setDogUrls(dogImageUrlList);
     } catch (error) {
       console.error(error)
     }
