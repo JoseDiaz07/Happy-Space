@@ -1,26 +1,32 @@
 import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import RefreshBtn from "../Components/RefreshBtn";
 import { MdOutlineFileDownload } from "react-icons/md";
+import {useCounter} from "../hooks/useCounter"
+import { NextBtn } from "../Components/NextBtn";
 
-const GifDog = () => {
+export const GifDog = () => {
   const API_KEY = "live_LaxTNaqiuVnnA7IXJ2ysXfufGDoqo6T4Z0avwRpEgLhaUzqsZRGMM8XSIkbTPWev"
-  const [dogUrls, setDogUrls] = useState('');
+  const [dogUrls, setDogUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
   const [liked, setLiked] = useState(false);
   const [showLikesOnly, setShowLikesOnly] = useState(false);
 
+  const {counter, increment } = useCounter(1)
+
   const getDog = useCallback(async () => {
+    setIsLoading(true)
     try {
-      const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=24&mime_types=gif&api_key=${API_KEY}`)
+      const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=24&mime_types=gif&api_key=${API_KEY}&page=${counter}`)
       const data = await res.json()
       const catImageUrlList = await data.map(dog => dog);
       setDogUrls(catImageUrlList);
+      setIsLoading(false)
     } catch (error) {
       console.error(error)
     }
-  }, [setDogUrls]);
+  }, [counter]);
 
   useEffect(() => {
     getDog()
@@ -43,7 +49,7 @@ const GifDog = () => {
 
       <div className="flex flex-wrap justify-center md:justify-start px-2 md:px-16 pt-10 gap-x-2 md:gap-x-4 gap-y-20 md:gap-y-10">
         {
-          dogUrls
+          !isLoading
             ?
             (
               dogUrls
@@ -95,9 +101,7 @@ const GifDog = () => {
         </button>
       </div>
 
-      <RefreshBtn path="/cats" get="getDog" />
+      <NextBtn increment={increment} />
     </div>
   )
 }
-
-export default GifDog

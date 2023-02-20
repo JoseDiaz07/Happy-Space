@@ -2,16 +2,9 @@ import AOS from 'aos';
 import "aos/dist/aos.css";
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer from './Components/Footer';
-import Navbar from "./Components/Navbar";
-import GalleryCats from "./Pages/GalleryCats";
-import GalleryDogs from "./Pages/GalleryDogs";
-import Home from "./Pages/Home";
-import NotFound from "./Pages/NotFound";
-import ScrollToTop from "./ScrollToTop";
-import GifCat from './Pages/GifCat';
-import GifDog from './Pages/GifDog';
-import ScrollToTopBtn from "./Components/ScrollToTopBtn";
+import {Footer, Navbar, ScrollToTopBtn} from './Components/'
+import {GalleryCats, GalleryDogs, Home, NotFound, GifCat, GifDog} from "./Pages/";
+import ScrollToTop from './ScrollToTop';
 
 function App() {
   useEffect(() => {

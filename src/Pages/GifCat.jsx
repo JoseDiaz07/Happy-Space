@@ -1,26 +1,32 @@
 import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import RefreshBtn from "../Components/RefreshBtn";
 import { MdOutlineFileDownload } from "react-icons/md";
+import { NextBtn } from "../Components/NextBtn";
+import {useCounter} from "../hooks/useCounter"
 
-const GifCat = () => {
+export const GifCat = () => {
   const API_KEY = "live_Vij93yq9KvVPmqRrG9T6tTTGyJggDD2nkxOitkWTaeQqzNT3IhACReHNuB3neLO8";
-  const [catUrls, setCatUrls] = useState('');
+  const [catUrls, setCatUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
   const [liked, setLiked] = useState(false);
   const [showLikesOnly, setShowLikesOnly] = useState(false);
 
+  const {counter, increment } = useCounter(1)
+
   const getCat = useCallback(async () => {
+    setIsLoading(true)
     try {
-      const res = await fetch(`https://api.thecatapi.com/v1/images/search?limit=24&mime_types=gif&api_key=${API_KEY}`)
+      const res = await fetch(`https://api.thecatapi.com/v1/images/search?limit=24&mime_types=gif&api_key=${API_KEY}&page=${counter}`)
       const data = await res.json()
       const catImageUrlList = await data.map(cat => cat);
       setCatUrls(catImageUrlList);
+      setIsLoading(false)
     } catch (error) {
       console.error(error)
     }
-  }, [setCatUrls]);
+  }, [counter]);
 
   useEffect(() => {
     getCat()
@@ -43,7 +49,7 @@ const GifCat = () => {
 
       <div className="flex flex-wrap justify-center md:justify-start px-2 md:px-16 pt-10 gap-x-2 md:gap-x-4 gap-y-20 md:gap-y-10">
         {
-          catUrls
+          !isLoading
             ?
             (
               catUrls
@@ -95,9 +101,7 @@ const GifCat = () => {
         </button>
       </div>
 
-      <RefreshBtn path="/cats" get="getCat" />
+      <NextBtn increment={increment} />
     </div>
   )
 }
-
-export default GifCat

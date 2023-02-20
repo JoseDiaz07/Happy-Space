@@ -1,0 +1,6 @@
+export * from "./GalleryCats"
+export * from "./GalleryDogs"
+export * from "./GifCat"
+export * from "./GifDog"
+export * from "./Home"
+export * from "./NotFound"

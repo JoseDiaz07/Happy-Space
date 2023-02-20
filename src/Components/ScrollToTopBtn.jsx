@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 
-const ScrollToTop = () => {
+export const ScrollToTopBtn = () => {
 
     const [scrolled, setScrolled] = useState(false)
 
@@ -34,5 +34,3 @@ const ScrollToTop = () => {
         </>
     )
 }
-
-export default ScrollToTop

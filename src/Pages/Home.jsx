@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { saveAs } from 'file-saver'
 import { CgSpinner } from "react-icons/cg";
-import ScrollToTop from "../Components/ScrollToTopBtn";
+import { ScrollToTopBtn } from "../Components/";
 
-const Home = () => {
+export const Home = () => {
   const [catImg, setCatImg] = useState("")
   const [dogImg, setDogImg] = useState("")
   const [loadingCat, setLoadingCat] = useState(false)
@@ -51,11 +51,13 @@ const Home = () => {
         <div className="h-96 w-80 shadow-lg rounded-xl text-center mx-auto md:mx-0 transition-all duration-500 bg-white dark:bg-[#28292a] " data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
           <div className="relative rounded-xl h-96 w-80  mx-auto overflow-hidden" >
             {
-              loadingCat ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28 text-black dark:text-slate-100" /> : <img src={catImg} alt="cat" className="h-96 w-80 object-cover rounded-xl  transition-all duration-300" />
+              loadingCat
+                ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28 text-black dark:text-slate-100" />
+                : <img src={catImg} alt="cat" className="h-96 w-80 object-cover rounded-xl  transition-all duration-300" />
             }
-            <div className="absolute bottom-0 right-20 p-2">
+            <div className="absolute bottom-0 right-8 p-2">
               <button onClick={getCat} className="btn text-slate-100 mr-3 backdrop-blur-sm">Get a cat</button>
-{/*               <a href={catImg} target="_blank" rel="noreferrer"><button className="btn text-slate-100 backdrop-blur-sm">Download</button></a> */}
+              <a href={catImg} target="_blank" rel="noreferrer"><button className="btn text-slate-100 backdrop-blur-sm">Download</button></a>
             </div>
           </div>
         </div>
@@ -63,7 +65,9 @@ const Home = () => {
         <div className="h-96 w-80 mt-10 md:mt-0 shadow-lg rounded-xl text-center mx-auto md:mx-0 transition-all duration-500 bg-white dark:bg-[#28292a]" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
           <div className="relative rounded-xl h-96 w-80  mx-auto overflow-hidden">
             {
-              loadingDog ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28 text-black dark:text-slate-100" /> : <img src={dogImg} alt="dog" className="h-96 w-80 object-cover rounded-xl  transition-all duration-300" />
+              loadingDog
+                ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28 text-black dark:text-slate-100" />
+                : <img src={dogImg} alt="dog" className="h-96 w-80 object-cover rounded-xl  transition-all duration-300" />
             }
             <div className="absolute bottom-0 right-8 p-2">
               <button onClick={getDog} className="btn text-slate-100 mr-3 backdrop-blur-sm">Get a dog</button>
@@ -73,9 +77,8 @@ const Home = () => {
         </div>
 
       </div>
-      <ScrollToTop />
+      <ScrollToTopBtn />
     </div>
   );
 }
 
-export default Home;

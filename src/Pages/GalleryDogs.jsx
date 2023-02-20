@@ -1,27 +1,34 @@
 import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { MdOutlineFileDownload } from "react-icons/md";
-import RefreshBtn from "../Components/RefreshBtn";
+import { LikeAfter } from "../Components/LikeAfter";
+import { LikeBefore } from "../Components/LikeBefore";
+import { NextBtn } from "../Components/NextBtn";
+import {useCounter} from "../hooks/useCounter"
 
-const GalleryDogs = () => {
+export const GalleryDogs = () => {
   const API_KEY = "live_LaxTNaqiuVnnA7IXJ2ysXfufGDoqo6T4Z0avwRpEgLhaUzqsZRGMM8XSIkbTPWev"
-  const [dogUrls, setDogUrls] = useState('');
+  const [dogUrls, setDogUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
   const [liked, setLiked] = useState(false);
   const [showLikesOnly, setShowLikesOnly] = useState(false);
 
+  const {counter, increment } = useCounter(1)
+
+
   const getDog = useCallback(async () => {
+    setIsLoading(true)
     try {
-      const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=24&mime_types=jpg&api_key=${API_KEY}`)
+      const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=15&mime_types=jpg&api_key=${API_KEY}${counter}`)
       const data = await res.json()
       const dogImageUrlList = await data.map(dog => dog);
       setDogUrls(dogImageUrlList);
+      setIsLoading(false)
     } catch (error) {
       console.error(error)
     }
 
-  }, [setDogUrls]);
+  }, [counter]);
 
   useEffect(() => {
     getDog()
@@ -30,7 +37,7 @@ const GalleryDogs = () => {
   useEffect(() => {
     localStorage.setItem("likes", JSON.stringify(likes));
   }, [likes])
-  
+
   const toggleFavorites = () => setShowLikesOnly(!showLikesOnly)
 
   return (
@@ -42,39 +49,21 @@ const GalleryDogs = () => {
 
       <div className="flex flex-wrap justify-center md:justify-start px-2 md:px-16 pt-10 gap-x-2 md:gap-x-4 gap-y-20 md:gap-y-10">
         {
-          dogUrls
+          !isLoading
             ?
             (
               dogUrls
                 .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
-                .map((dogUrl) =>
-                  <div className="relative rounded-xl shadow-md dark:shadow-none" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={dogUrl.url} alt="dog" className="h-96 md:h-full w-72 object-cover rounded-xl" />
+                .map(({ id, url }) =>
+                  <div className="relative rounded-xl shadow-md dark:shadow-none" key={id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                    <img src={url} alt="dog" className="h-96 md:h-full w-72 object-cover rounded-xl" />
                     <div className="absolute bottom-0 right-0 p-2">
-                      <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
-
+                      <button onClick={function () { setLikes({ ...likes, [id]: !likes[id] }); setLiked(true) }}>
                         {
-                          liked & likes[dogUrl.id]
-                            ?
-                            <div className="flex gap-x-2">
-                              <span className="p-0.5 backdrop-blur-sm rounded-full">
-                                <AiFillHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
-                              </span>
-                              <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="p-0.5 backdrop-blur-sm rounded-full">
-                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200 backdrop-blur-sm" />
-                              </a>
-                            </div>
-                            :
-                            <div className="flex gap-x-2">
-                              <span className="p-0.5 backdrop-blur-sm rounded-full">
-                                <AiOutlineHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
-                              </span>
-                              <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="p-0.5 backdrop-blur-sm rounded-full">
-                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200 backdrop-blur-sm" />
-                              </a>
-                            </div>
+                          liked & likes[id]
+                            ? <LikeAfter url={url} />
+                            : <LikeBefore url={url} />
                         }
-
                       </button>
                     </div>
                   </div>
@@ -94,9 +83,7 @@ const GalleryDogs = () => {
         </button>
       </div>
 
-      <RefreshBtn path="/cats" get="getCats" />
+      <NextBtn increment={increment} />
     </div>
   )
 }
-
-export default GalleryDogs
