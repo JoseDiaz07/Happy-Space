@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdOutlineFileDownload } from "react-icons/md";
-import {useCounter} from "../hooks/useCounter"
+import { useCounter } from "../hooks/useCounter"
 import { NextBtn } from "../Components/NextBtn";
 
 export const GifDog = () => {
@@ -13,7 +13,7 @@ export const GifDog = () => {
   const [liked, setLiked] = useState(false);
   const [showLikesOnly, setShowLikesOnly] = useState(false);
 
-  const {counter, increment } = useCounter(1)
+  const { counter, increment } = useCounter(1)
 
   const getDog = useCallback(async () => {
     setIsLoading(true)

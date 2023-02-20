@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { LikeAfter, LikeBefore } from "../Components/";
 import { NextBtn } from "../Components/NextBtn";
@@ -13,7 +13,6 @@ export const GalleryCats = () => {
   const [showLikesOnly, setShowLikesOnly] = useState(false);;
 
   const {counter, increment } = useCounter(1)
-
 
   const getCat = useCallback(async () => {
     setIsLoading(true)
@@ -85,7 +84,7 @@ export const GalleryCats = () => {
         </button>
       </div>
       
-      <NextBtn increment={increment} />
+      <NextBtn increment={increment}  />
 
     </div>
   )

@@ -1,3 +1,4 @@
+import { saveAs } from "file-saver";
 import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { LikeAfter } from "../Components/LikeAfter";
@@ -29,6 +30,8 @@ export const GalleryDogs = () => {
     }
 
   }, [counter]);
+
+  const downloadDog = () => saveAs(dogUrls, 'dog.jpg');
 
   useEffect(() => {
     getDog()
