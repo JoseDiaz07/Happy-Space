@@ -1,41 +1,16 @@
-import { saveAs } from "file-saver";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { LikeAfter } from "../Components/LikeAfter";
 import { LikeBefore } from "../Components/LikeBefore";
 import { NextBtn } from "../Components/NextBtn";
-import {useCounter} from "../hooks/useCounter"
+import { useFetch } from "../hooks/useFetch";
 
 export const GalleryDogs = () => {
-  const API_KEY = "live_LaxTNaqiuVnnA7IXJ2ysXfufGDoqo6T4Z0avwRpEgLhaUzqsZRGMM8XSIkbTPWev"
-  const [dogUrls, setDogUrls] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
   const [liked, setLiked] = useState(false);
   const [showLikesOnly, setShowLikesOnly] = useState(false);
 
-  const {counter, increment } = useCounter(1)
-
-
-  const getDog = useCallback(async () => {
-    setIsLoading(true)
-    try {
-      const res = await fetch(`https://api.thedogapi.com/v1/images/search?limit=15&mime_types=jpg&api_key=${API_KEY}${counter}`)
-      const data = await res.json()
-      const dogImageUrlList = await data.map(dog => dog);
-      setDogUrls(dogImageUrlList);
-      setIsLoading(false)
-    } catch (error) {
-      console.error(error)
-    }
-
-  }, [counter]);
-
-  const downloadDog = () => saveAs(dogUrls, 'dog.jpg');
-
-  useEffect(() => {
-    getDog()
-  }, [getDog])
+  const { urls, increment, isLoading } = useFetch("https://api.thedogapi.com/v1/images/search?limit=15&mime_types=jpg&api_key=", "live_LaxTNaqiuVnnA7IXJ2ysXfufGDoqo6T4Z0avwRpEgLhaUzqsZRGMM8XSIkbTPWev")
 
   useEffect(() => {
     localStorage.setItem("likes", JSON.stringify(likes));
@@ -55,7 +30,7 @@ export const GalleryDogs = () => {
           !isLoading
             ?
             (
-              dogUrls
+              urls
                 .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
                 .map(({ id, url }) =>
                   <div className="relative rounded-xl shadow-md dark:shadow-none" key={id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">

@@ -1,31 +1,32 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useCounter } from "./useCounter";
 
-export const useFetch = (url) => {
-    const [state, setState] = useState({
-        data: null,
-        isLoading: true,
-        hasError: null,
-    })
+export const useFetch = (url, API_KEY) => {
+  const [urls, setUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const getFetch = async () => {
+  const { counter, increment } = useCounter(1);
 
-    setState({...state, isLoading: true})
-    const res = await fetch(url);
-    const data = await res.json();
-    setState({
-        data,
-        isLoading: false,
-        hasError: null
-    })
-  };
+  const getUrl = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${url}${API_KEY}&page=${counter}`);
+      const data = await res.json();
+      const imageUrlList = await data.map((dog) => dog);
+      setUrls(imageUrlList);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [API_KEY, counter, url]);
 
   useEffect(() => {
-    getFetch();
-  }, [url]);
+    getUrl();
+  }, [getUrl]);
 
   return {
-    data: state.data,
-    isLoading: state.isLoading,
-    hasError: state.hasError
+    isLoading,
+    urls,
+    increment,
   };
 };

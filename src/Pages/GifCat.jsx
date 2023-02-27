@@ -1,36 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { NextBtn } from "../Components/NextBtn";
-import {useCounter} from "../hooks/useCounter"
+import { useFetch } from "../hooks/useFetch";
 
 export const GifCat = () => {
-  const API_KEY = "live_Vij93yq9KvVPmqRrG9T6tTTGyJggDD2nkxOitkWTaeQqzNT3IhACReHNuB3neLO8";
-  const [catUrls, setCatUrls] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
   const [liked, setLiked] = useState(false);
   const [showLikesOnly, setShowLikesOnly] = useState(false);
 
-  const {counter, increment } = useCounter(1)
-
-  const getCat = useCallback(async () => {
-    setIsLoading(true)
-    try {
-      const res = await fetch(`https://api.thecatapi.com/v1/images/search?limit=24&mime_types=gif&api_key=${API_KEY}&page=${counter}`)
-      const data = await res.json()
-      const catImageUrlList = await data.map(cat => cat);
-      setCatUrls(catImageUrlList);
-      setIsLoading(false)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [counter]);
-
-  useEffect(() => {
-    getCat()
-  }, [getCat])
+  const { urls, increment, isLoading } = useFetch("https://api.thecatapi.com/v1/images/search?limit=20&mime_types=gif&api_key=", "live_Vij93yq9KvVPmqRrG9T6tTTGyJggDD2nkxOitkWTaeQqzNT3IhACReHNuB3neLO8")
 
   useEffect(() => {
     localStorage.setItem("likes", JSON.stringify(likes));
@@ -40,7 +20,6 @@ export const GifCat = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
-
       <div className="flex justify-end pr-3 md:pr-16">
         <button onClick={toggleFavorites} className="px-8 py-3 text-black dark:text-slate-400 dark:hover:text-white text-center mt-8 text-xl cursor-pointer hover:underline underline-offset-4 decoration-red-800 dark:decoration-red-200  transition-all duration-200">
           Favorites
@@ -52,7 +31,7 @@ export const GifCat = () => {
           !isLoading
             ?
             (
-              catUrls
+              urls
                 .filter(catUrl => !showLikesOnly || likes[catUrl.id])
                 .map((catUrl) =>
                   <div className="relative rounded-xl shadow-md dark:shadow-none" key={catUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
