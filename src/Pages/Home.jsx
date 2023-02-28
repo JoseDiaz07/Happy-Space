@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { saveAs } from 'file-saver'
-import { CgSpinner } from "react-icons/cg";
 import { ScrollToTopBtn } from "../Components/";
+import { CgSpinner } from "react-icons/cg";
 
 export const Home = () => {
   const [catImg, setCatImg] = useState("")

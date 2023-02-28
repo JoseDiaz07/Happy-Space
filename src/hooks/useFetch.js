@@ -4,7 +4,6 @@ import { useCounter } from "./useCounter";
 export const useFetch = (url, API_KEY) => {
   const [urls, setUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const { counter, increment } = useCounter(1);
 
   const getUrl = useCallback(async () => {

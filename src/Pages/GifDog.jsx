@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { CgSpinner } from "react-icons/cg";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { MdOutlineFileDownload } from "react-icons/md";
-import { NextBtn } from "../Components/NextBtn";
 import { useFetch } from "../hooks/useFetch";
+import { LikeAfter, LikeBefore, NextBtn } from "../Components";
+import { CgSpinner } from "react-icons/cg";
 
 export const GifDog = () => {
   const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
@@ -33,34 +31,16 @@ export const GifDog = () => {
             (
               urls
                 .filter(dogUrl => !showLikesOnly || likes[dogUrl.id])
-                .map((dogUrl) =>
-                  <div className="relative rounded-xl shadow-md dark:shadow-none" key={dogUrl.id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                    <img src={dogUrl.url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-xl" />
+                .map(({ id, url }) =>
+                  <div className="relative rounded-xl shadow-md dark:shadow-none" key={id} data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                    <img src={url} alt="cat" className="h-96 md:h-full w-72 object-cover rounded-xl" />
                     <div className="absolute bottom-0 right-0 p-2">
-                      <button onClick={function () { setLikes({ ...likes, [dogUrl.id]: !likes[dogUrl.id] }); setLiked(true) }}>
-
+                      <button onClick={function () { setLikes({ ...likes, [id]: !likes[id] }); setLiked(true) }}>
                         {
-                          liked & likes[dogUrl.id]
-                            ?
-                            <div className="flex gap-x-2">
-                              <span className="p-0.5 backdrop-blur-sm rounded-full">
-                                <AiFillHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
-                              </span>
-                              <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="p-0.5 backdrop-blur-sm rounded-full">
-                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200 backdrop-blur-sm" />
-                              </a>
-                            </div>
-                            :
-                            <div className="flex gap-x-2">
-                              <span className="p-0.5 backdrop-blur-sm rounded-full">
-                                <AiOutlineHeart size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200" />
-                              </span>
-                              <a href={dogUrl.url} download target="_blank" rel="noreferrer" className="p-0.5 backdrop-blur-sm rounded-full">
-                                <MdOutlineFileDownload size={35} className="hover:bg-red-200 text-red-100 font-semibold hover:text-white p-1 rounded-full transition-all duration-200 backdrop-blur-sm" />
-                              </a>
-                            </div>
+                          liked & likes[id]
+                            ? <LikeAfter url={url} />
+                            : <LikeBefore url={url} />
                         }
-
                       </button>
                     </div>
                   </div>
