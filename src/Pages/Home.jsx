@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { saveAs } from 'file-saver'
 import { ScrollToTopBtn } from "../Components/";
 import { CgSpinner } from "react-icons/cg";
 
@@ -22,8 +21,6 @@ export const Home = () => {
       console.error(error)
     }
   }
-
-  const downloadDog = () => saveAs(dogImg, 'dog.jpg');
 
   //* Bring dog img
   const getDog = async () => {
@@ -55,9 +52,8 @@ export const Home = () => {
                 ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28 text-black dark:text-slate-100" />
                 : <img src={catImg} alt="cat" className="h-96 w-80 object-cover rounded-xl  transition-all duration-300" />
             }
-            <div className="absolute bottom-0 right-8 p-2">
-              <button onClick={getCat} className="btn text-slate-100 mr-3 backdrop-blur-sm">Get a cat</button>
-              <a href={catImg} target="_blank" rel="noreferrer"><button className="btn text-slate-100 backdrop-blur-sm">Download</button></a>
+            <div className="absolute bottom-0 right-1/4 p-2">
+              <button onClick={getCat} className="btn text-slate-100 mr-3 backdrop-blur-sm shadow-sm shadow-gray-800">Get a cat</button>
             </div>
           </div>
         </div>
@@ -69,9 +65,8 @@ export const Home = () => {
                 ? <CgSpinner size={90} className="animate-spin mx-auto absolute top-28 left-28 text-black dark:text-slate-100" />
                 : <img src={dogImg} alt="dog" className="h-96 w-80 object-cover rounded-xl  transition-all duration-300" />
             }
-            <div className="absolute bottom-0 right-8 p-2">
-              <button onClick={getDog} className="btn text-slate-100 mr-3 backdrop-blur-sm">Get a dog</button>
-              <span onClick={downloadDog}><button className="btn text-slate-100 backdrop-blur-sm">Download</button></span>
+            <div className="absolute bottom-0 right-1/4  p-2">
+              <button onClick={getDog} className="btn text-slate-100 mr-3 backdrop-blur-sm shadow-sm shadow-gray-800">Get a dog</button>
             </div>
           </div>
         </div>

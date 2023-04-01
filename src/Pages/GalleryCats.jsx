@@ -16,7 +16,6 @@ export const GalleryCats = () => {
 
   const toggleFavorites = () => setShowLikesOnly(!showLikesOnly)
 
-
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#121212] dark:text-white transition-all duration-500 pb-10">
 
